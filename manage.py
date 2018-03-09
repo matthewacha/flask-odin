@@ -1,13 +1,14 @@
+"""Import dependencies"""
 import unittest
 from flask_script import Manager
 from app import app
 
-"""create an instance of class that will handle our commands"""
-manager = Manager(app)
+#create an instance of class that will handle our commands
+MANAGER = Manager(app)
 
 """define our command for testing called "test"
 Usage: python manage.py test"""
-@manager.command
+@MANAGER.command
 def test():
     """Runs the unit tests without test coverage."""
     tests = unittest.TestLoader().discover('./tests', pattern='test*.py')
@@ -16,10 +17,10 @@ def test():
         return 0
     return 1
 
-@manager.command
+@MANAGER.command
 def run():
     """Starts the server and debugs with the shell"""
     app.run(debug=True)
-    
+
 if __name__ == '__main__':
-    manager.run()
+    MANAGER.run()
