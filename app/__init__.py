@@ -9,4 +9,4 @@ APP = Flask(__name__)
 """register app blueprints"""
 APP.register_blueprint(users_blueprint)
 
-#"""register api blueprints"""
+
