@@ -1,7 +1,6 @@
 """Import dependencies"""
 import unittest
 import os
-import coverage
 from flask_script import Manager
 from app import APP
 
@@ -12,14 +11,20 @@ MANAGER = Manager(APP)
 Usage: python manage.py test"""
 @MANAGER.command
 def run_test():
-    """Runs the unit tests with test coverage."""
-    tests = unittest.TestLoader().discover('./tests', pattern='test*.py')
+    """Runs the unit tests without test coverage."""
+    tests = unittest.TestLoader().discover('./tests' , pattern='test*.py')
     result = unittest.TextTestRunner(verbosity=2).run(tests)
-    os.system('coverage report')
-    os.system('coverage html')
+    # os.system('coverage run manage.py run_test')
     if result.wasSuccessful():
         return 0
     return 1
+
+@MANAGER.command
+def cover():
+    """runs the unit tests with coverage"""
+    os.system('coverage run manage.py run_test')
+    os.system('coverage report')
+    os.system('coverage html')
 
 @MANAGER.command
 def run_app():
